@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICompliance - Digital Twin Security Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">🛡️</div>
+                    <div class="title-section">
+                        <h1>AICompliance</h1>
+                        <p>Where Intelligence Meets Defence</p>
+                    </div>
+                </div>
+                <div class="threat-indicator">
+                    <div class="threat-status" id="threat-status">
+                        <div class="status-dot"></div>
+                        <span id="threat-level">NORMAL</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="navigation">
+            <button class="nav-btn active" onclick="showTab('dashboard')">
+                <span class="nav-icon">📊</span>
+                Command Center
+            </button>
+            <button class="nav-btn" onclick="showTab('agents')">
+                <span class="nav-icon">🤖</span>
+                Agent Hub
+            </button>
+            <button class="nav-btn" onclick="showTab('threats')">
+                <span class="nav-icon">⚠️</span>
+                Threat Simulator
+            </button>
+            <button class="nav-btn" onclick="showTab('twin')">
+                <span class="nav-icon">🔗</span>
+                Digital Twin
+            </button>
+            <button class="nav-btn" onclick="showTab('azure')">
+                <span class="nav-icon">☁️</span>
+                Azure Integration
+            </button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Threats Detected</h3>
+                        <div class="metric-value" id="threats-detected">27</div>
+                        <div class="metric-icon">⚠️</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Threats Blocked</h3>
+                        <div class="metric-value" id="threats-blocked">12</div>
+                        <div class="metric-icon">🛡️</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>CPU Usage</h3>
+                        <div class="metric-value"><span id="cpu-usage">45</span>%</div>
+                        <div class="metric-icon">💻</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Memory Usage</h3>
+                        <div class="metric-value"><span id="memory-usage">62</span>%</div>
+                        <div class="metric-icon">💾</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="chart-container">
+                        <h3>System Performance</h3>
+                        <div class="chart" id="performance-chart">
+                            <div class="chart-bars">
+                                 <div class="bar" style="height: 45%" data-label="CPU"><span></span></div>
+                    <div class="bar" style="height: 62%" data-label="Memory"><span></span></div>
+                    <div class="bar" style="height: 78%" data-label="Disk"><span></span></div>
+                    <div class="bar" style="height: 34%" data-label="Network"><span></span></div>
+                    <div class="bar" style="height: 56%" data-label="Processes"><span></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="agent-status-panel">
+                        <h3>Agent Status</h3>
+                        <div id="agent-status-list">
+                            <div class="agent-item">
+                                <div class="agent-name">Watcher Agent</div>
+                                <div class="agent-status active">Active</div>
+                            </div>
+                            <div class="agent-item">
+                                <div class="agent-name">Analyzer Agent</div>
+                                <div class="agent-status active">Active</div>
+                            </div>
+                            <div class="agent-item">
+                                <div class="agent-name">Remediator Agent</div>
+                                <div class="agent-status standby">Standby</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agents Tab -->
+            <div id="agents" class="tab-content">
+                <div class="agents-grid">
+                    <div class="agent-card">
+                        <div class="agent-header">
+                            <h3>🔍 Watcher Agent</h3>
+                            <div class="agent-status active">Active</div>
+                        </div>
+                        <div class="agent-description">
+                            <p>Continuously monitors application behavior and network traffic for anomalies</p>
+                            <ul>
+                                <li>Real-time traffic analysis</li>
+                                <li>Behavioral pattern recognition</li>
+                                <li>Threshold monitoring</li>
+                            </ul>
+                        </div>
+                        <div class="agent-metrics">
+                            <div class="metric">
+                                <span>Events Processed:</span>
+                                <span id="watcher-events">1,247</span>
+                            </div>
+                            <div class="metric">
+                                <span>Anomalies Detected:</span>
+                                <span id="watcher-anomalies">3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="agent-card">
+                        <div class="agent-header">
+                            <h3>🧠 Analyzer Agent</h3>
+                            <div class="agent-status active">Active</div>
+                        </div>
+                        <div class="agent-description">
+                            <p>Analyzes detected anomalies and determines threat severity and response</p>
+                            <ul>
+                                <li>Threat classification</li>
+                                <li>Risk assessment</li>
+                                <li>Response recommendation</li>
+                            </ul>
+                        </div>
+                        <div class="agent-metrics">
+                            <div class="metric">
+                                <span>Analyses Completed:</span>
+                                <span id="analyzer-analyses">156</span>
+                            </div>
+                            <div class="metric">
+                                <span>Accuracy Rate:</span>
+                                <span id="analyzer-accuracy">96.8%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="agent-card">
+                        <div class="agent-header">
+                            <h3>🔧 Remediator Agent</h3>
+                            <div class="agent-status standby">Standby</div>
+                        </div>
+                        <div class="agent-description">
+                            <p>Executes automated responses and remediation actions for detected threats</p>
+                            <ul>
+                                <li>Automatic threat blocking</li>
+                                <li>System quarantine</li>
+                                <li>Recovery procedures</li>
+                            </ul>
+                        </div>
+                        <div class="agent-metrics">
+                            <div class="metric">
+                                <span>Actions Executed:</span>
+                                <span id="remediator-actions">89</span>
+                            </div>
+                            <div class="metric">
+                                <span>Success Rate:</span>
+                                <span id="remediator-success">100%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Threats Tab -->
+            <div id="threats" class="tab-content">
+                <!-- Threat Simulator Sub-Navigation -->
+                <div class="threat-nav">
+                    <button class="threat-nav-btn active" onclick="showThreatTab('azure-conn')">
+                        Azure Connection
+                    </button>
+                    <button class="threat-nav-btn " onclick="showThreatTab('simulator')">
+                        Threat Simulator
+                    </button>
+                    <button class="threat-nav-btn" onclick="showThreatTab('logs')">
+                        Threat Logs
+                    </button>
+                    
+                    <button class="threat-nav-btn" onclick="showThreatTab('actions')">
+                        Agent Actions
+                    </button>
+                </div>
+
+                <!-- Threat Simulator Sub-Tab -->
+                <div id="simulator" class="threat-tab-content">
+                    <div class="threat-controls">
+                        <h3>Threat Simulation Controls</h3>
+                        <div class="simulation-buttons">
+                            <button class="sim-btn low" onclick="simulateThreat('ddos', 'low')">
+                                DDoS Attack (Low)
+                            </button>
+                            <button class="sim-btn medium" onclick="simulateThreat('sql_injection', 'medium')">
+                                SQL Injection (Medium)
+                            </button>
+                            <button class="sim-btn high" onclick="simulateThreat('malware', 'high')">
+                                Malware (High)
+                            </button>
+                            <button class="sim-btn critical" onclick="simulateThreat('zero_day', 'critical')">
+                                Zero Day (Critical)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="threat-log">
+                        <h3>Recent Threat Events</h3>
+                        <div id="threat-events" class="event-list">
+                            
+<div class="event-item">
+    <div class="event-time">7/14/2025, 5:33:29 PM</div>
+    <div class="event-type">Simulated malware attack detected</div>
+    <div class="event-status high">HIGH</div>
+</div>
+<div class="event-item">
+    <div class="event-time">7/13/2025, 9:36:09 PM</div>
+    <div class="event-type">Simulated sql_injection attack detected</div>
+    <div class="event-status medium">MEDIUM</div>
+</div>
+<div class="event-item">
+    <div class="event-time">7/13/2025, 11:36:50 PM</div>
+    <div class="event-type">Simulated zero_day attack detected</div>
+    <div class="event-status critical">CRITICAL</div>
+</div>
+<div class="event-item">
+    <div class="event-time">7/13/2025, 12:36:31 AM</div>
+    <div class="event-type">Simulated ddos attack detected</div>
+    <div class="event-status low">LOW</div>
+</div>
+                            <div class="event-item">
+                                <div class="event-time">7/12/2025, 8:35:10 AM</div>
+                                <div class="event-type">System Initialized</div>
+                                <div class="event-status normal">Normal</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Threat Logs Sub-Tab -->
+                <div id="logs" class="threat-tab-content">
+                    <div class="logs-container">
+                        <h3>Threat Detection Logs</h3>
+                        <div class="logs-grid" id="threat-logs-grid">
+                            <!-- Logs will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Azure Connection Sub-Tab -->
+                <div id="azure-conn" class="threat-tab-content active">
+                    <div class="azure-connection">
+                        <h3>Azure Security Services Connection</h3>
+                        <div class="connection-grid">
+                            <div class="connection-card">
+                                <div class="connection-header">
+                                    <h4>Azure Sentinel</h4>
+                                    <div class="connection-status connected" id="sentinel-conn-status">Connected</div>
+                                </div>
+                                <div class="connection-details">
+                                    <p>Workspace: ODL-Infosys-Hack-workspace</p>
+                                    <p>Region: East US</p>
+                                    <p>Last Sync: <span id="sentinel-last-sync">2025-01-16 14:25:30</span></p>
+                                </div>
+                                <button class="connection-btn" onclick="testAzureConnection('sentinel')">Test Connection</button>
+                            </div>
+
+                            <div class="connection-card">
+                                <div class="connection-header">
+                                    <h4>Azure Security Center</h4>
+                                    <div class="connection-status connected" id="security-conn-status">Connected</div>
+                                </div>
+                                <div class="connection-details">
+                                    <p>Subscription: Cloudlabs Sandbox DS - 1869</p>
+                                    <p>Resource Group: ODL-Infosys-Hack-1775171-01</p>
+                                    <p>Last Sync: <span id="security-last-sync">2025-01-16 14:23:15</span></p>
+                                </div>
+                                <button class="connection-btn" onclick="testAzureConnection('security')">Test Connection</button>
+                            </div>
+
+                            <div class="connection-card">
+                                <div class="connection-header">
+                                    <h4>Azure Log Analytics</h4>
+                                    <div class="connection-status connected" id="logs-conn-status">Connected</div>
+                                </div>
+                                <div class="connection-details">
+                                    <p>Workspace ID: AICompliance-2025</p>
+                                    <p>Data Retention: 90 days</p>
+                                    <p>Last Sync: <span id="logs-last-sync">2025-01-16 14:24:45</span></p>
+                                </div>
+                                <button class="connection-btn" onclick="testAzureConnection('logs')">Test Connection</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agent Actions Sub-Tab -->
+                <div id="actions" class="threat-tab-content">
+                    <div class="actions-container">
+                        <h3>Agent Control Center</h3>
+                        
+                        <div class="agent-controls">
+                            <div class="agent-control-card">
+                                <div class="agent-control-header">
+                                    <h4>🔍 Watcher Agent</h4>
+                                    <div class="agent-control-status" id="watcher-control-status">Active</div>
+                                </div>
+                                <div class="agent-actions">
+                                    <button class="action-btn start" onclick="controlAgent('watcher', 'start')">Start Monitoring</button>
+                                    <button class="action-btn pause" onclick="controlAgent('watcher', 'pause')">Pause</button>
+                                    <button class="action-btn reset" onclick="controlAgent('watcher', 'reset')">Reset</button>
+                                </div>
+                                <div class="agent-activity" id="watcher-activity">
+                                    <h5>Current Activity:</h5>
+                                    <div class="activity-log">
+                                        <p>• Monitoring network traffic patterns</p>
+                                        <p>• Analyzing user behavior anomalies</p>
+                                        <p>• Scanning for suspicious connections</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="agent-control-card">
+                                <div class="agent-control-header">
+                                    <h4>🧠 Analyzer Agent</h4>
+                                    <div class="agent-control-status" id="analyzer-control-status">Processing</div>
+                                </div>
+                                <div class="agent-actions">
+                                    <button class="action-btn start" onclick="controlAgent('analyzer', 'start')">Start Analysis</button>
+                                    <button class="action-btn pause" onclick="controlAgent('analyzer', 'pause')">Pause</button>
+                                    <button class="action-btn reset" onclick="controlAgent('analyzer', 'reset')">Reset</button>
+                                </div>
+                                <div class="agent-activity" id="analyzer-activity">
+                                    <h5>Current Activity:</h5>
+                                    <div class="activity-log">
+                                        <p>• Analyzing threat patterns from Watcher</p>
+                                        <p>• Calculating risk scores</p>
+                                        <p>• Generating response recommendations</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="agent-control-card">
+                                <div class="agent-control-header">
+                                    <h4>🔧 Remediator Agent</h4>
+                                    <div class="agent-control-status" id="remediator-control-status">Standby</div>
+                                </div>
+                                <div class="agent-actions">
+                                    <button class="action-btn start" onclick="controlAgent('remediator', 'start')">Activate</button>
+                                    <button class="action-btn pause" onclick="controlAgent('remediator', 'pause')">Pause</button>
+                                    <button class="action-btn reset" onclick="controlAgent('remediator', 'reset')">Reset</button>
+                                </div>
+                                <div class="agent-activity" id="remediator-activity">
+                                    <h5>Current Activity:</h5>
+                                    <div class="activity-log">
+                                        <p>• Waiting for remediation commands</p>
+                                        <p>• Monitoring system health</p>
+                                        <p>• Ready to execute countermeasures</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Twin Tab -->
+            <div id="twin" class="tab-content">
+                <div class="twin-overview">
+                    <h3>Digital Twin Status</h3>
+                    <div class="twin-metrics">
+                        <div class="twin-metric">
+                            <h4>Application Health</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="app-health" style="width: 95%"></div>
+                            </div>
+                            <span id="app-health-value">95%</span>
+                        </div>
+                        <div class="twin-metric">
+                            <h4>Response Time</h4>
+                            <div class="metric-value"><span id="response-time">150</span>ms</div>
+                        </div>
+                        <div class="twin-metric">
+                            <h4>Error Rate</h4>
+                            <div class="metric-value"><span id="error-rate">0.02</span>%</div>
+                        </div>
+                        <div class="twin-metric">
+                            <h4>Throughput</h4>
+                            <div class="metric-value"><span id="throughput">1200</span>/sec</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="twin-visualization">
+                    <h3>Real-time Application Mirror</h3>
+                    <div class="twin-diagram">
+                        <div class="twin-node active" id="web-server">
+                            <div class="node-label">Web Server</div>
+                            <div class="node-status">✅ Healthy</div>
+                        </div>
+                        <div class="twin-node active" id="database">
+                            <div class="node-label">Database</div>
+                            <div class="node-status">✅ Healthy</div>
+                        </div>
+                        <div class="twin-node active" id="api-gateway">
+                            <div class="node-label">API Gateway</div>
+                            <div class="node-status">✅ Healthy</div>
+                        </div>
+                        <div class="twin-connections">
+                            <div class="connection active"></div>
+                            <div class="connection active"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Azure Integration Tab -->
+            <div id="azure" class="tab-content">
+                <div class="azure-services">
+                    <h3>Azure Cloud Services Integration</h3>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h4>Azure Sentinel</h4>
+                                <div class="service-status connected">Connected</div>
+                            </div>
+                            <div class="service-metrics">
+                                <div class="metric">
+                                    <span>Security Alerts:</span>
+                                    <span id="sentinel-alerts">23</span>
+                                </div>
+                                <div class="metric">
+                                    <span>Active Incidents:</span>
+                                    <span id="sentinel-incidents">5</span>
+                                </div>
+                            </div>
+                            <button class="sync-btn" onclick="syncAzureService('sentinel')">
+                                Sync Now
+                            </button>
+                        </div>
+
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h4>Azure Security Center</h4>
+                                <div class="service-status connected">Connected</div>
+                            </div>
+                            <div class="service-metrics">
+                                <div class="metric">
+                                    <span>Recommendations:</span>
+                                    <span id="security-recommendations">12</span>
+                                </div>
+                                <div class="metric">
+                                    <span>Secure Score:</span>
+                                    <span id="secure-score">85</span>
+                                </div>
+                            </div>
+                            <button class="sync-btn" onclick="syncAzureService('security_center')">
+                                Sync Now
+                            </button>
+                        </div>
+
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h4>Azure Log Analytics</h4>
+                                <div class="service-status connected">Connected</div>
+                            </div>
+                            <div class="service-metrics">
+                                <div class="metric">
+                                    <span>Data Ingestion:</span>
+                                    <span id="log-ingestion">2.5GB</span>
+                                </div>
+                                <div class="metric">
+                                    <span>Queries Today:</span>
+                                    <span id="log-queries">1,847</span>
+                                </div>
+                            </div>
+                            <button class="sync-btn" onclick="syncAzureService('log_analytics')">
+                                Sync Now
+                            </button>
+                        </div>
+
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h4>Azure Key Vault</h4>
+                                <div class="service-status connected">Connected</div>
+                            </div>
+                            <div class="service-metrics">
+                                <div class="metric">
+                                    <span>Secrets:</span>
+                                    <span id="vault-secrets">45</span>
+                                </div>
+                                <div class="metric">
+                                    <span>Certificates:</span>
+                                    <span id="vault-certificates">8</span>
+                                </div>
+                            </div>
+                            <button class="sync-btn" onclick="syncAzureService('key_vault')">
+                                Sync Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 AICompliance - Digital Twin Security Platform</p>
+                <div class="system-status">
+                    <span class="status-indicator">✅</span>
+                    <span>System Operational</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
